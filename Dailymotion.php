@@ -263,11 +263,11 @@ class Dailymotion
 
         if (!isset($result))
         {
-            throw new \DailymotionApiException('Invalid API server response.');
+            throw new DailymotionApiException('Invalid API server response.');
         }
         elseif ($status_code !== 200)
         {
-            throw new \DailymotionApiException('Unknown error: ' . $status_code, $status_code);
+            throw new DailymotionApiException('Unknown error: ' . $status_code, $status_code);
         }
         elseif (is_array($result) && isset($result['error']))
         {
@@ -275,16 +275,16 @@ class Dailymotion
             $code = isset($result['error']['code']) ? $result['error']['code'] : null;
             if ($code === 403)
             {
-                throw new \DailymotionAuthRequiredException($message, $code);
+                throw new DailymotionAuthRequiredException($message, $code);
             }
             else
             {
-                throw new \DailymotionApiException($message, $code);
+                throw new DailymotionApiException($message, $code);
             }
         }
         elseif (!isset($result['result']))
         {
-            throw new \DailymotionApiException("Invalid API server response: no `result' key found.");
+            throw new DailymotionApiException("Invalid API server response: no `result' key found.");
         }
 
         return $result['result'];
@@ -379,11 +379,11 @@ class Dailymotion
                     $message = isset($_GET['error_description']) ? $_GET['error_description'] : null;
                     if ($_GET['error'] === 'access_denied')
                     {
-                        $e = new \DailymotionAuthRefusedException($message);
+                        $e = new DailymotionAuthRefusedException($message);
                     }
                     else
                     {
-                        $e = new \DailymotionAuthException($message);
+                        $e = new DailymotionAuthException($message);
                     }
                     $e->error = $_GET['error'];
                     throw $e;
@@ -391,7 +391,7 @@ class Dailymotion
                 else
                 {
                     // Ask the client to request end-user authorization
-                    throw new \DailymotionAuthRequiredException();
+                    throw new DailymotionAuthRequiredException();
                 }
             }
             elseif ($this->grantType === self::GRANT_TYPE_CLIENT_CREDENTIALS)
@@ -412,7 +412,7 @@ class Dailymotion
                 if (!isset($this->grantInfo['username']) || !isset($this->grantInfo['password']))
                 {
                     // Ask the client to request end-user credentials
-                    throw new \DailymotionAuthRequiredException();
+                    throw new DailymotionAuthRequiredException();
                 }
                 $session = $this->oauthTokenRequest(array
                 (
@@ -535,12 +535,12 @@ class Dailymotion
 
         if (!isset($result))
         {
-            throw new \DailymotionAuthException("Invalid token server response: $response.");
+            throw new DailymotionAuthException("Invalid token server response: $response.");
         }
         elseif (isset($result['error']))
         {
             $message = isset($result['error_description']) ? $result['error_description'] : null;
-            $e = new \DailymotionAuthException($message);
+            $e = new DailymotionAuthException($message);
             $e->error = $result['error'];
             throw $e;
         }
@@ -556,7 +556,7 @@ class Dailymotion
         }
         else
         {
-            throw new \DailymotionAuthException('No access token found in the token server response.');
+            throw new DailymotionAuthException('No access token found in the token server response.');
         }
     }
 
@@ -596,7 +596,7 @@ class Dailymotion
                     $message = $match[2];
                 }
 
-                $e = new \DailymotionAuthException($message);
+                $e = new DailymotionAuthException($message);
                 $e->error = $error;
                 throw $e;
         }
@@ -665,7 +665,7 @@ class Dailymotion
 
         if ($response === false)
         {
-            $e = new \DailymotionTransportException(curl_error($ch), curl_errno($ch));
+            $e = new DailymotionTransportException(curl_error($ch), curl_errno($ch));
             curl_close($ch);
             throw $e;
         }
