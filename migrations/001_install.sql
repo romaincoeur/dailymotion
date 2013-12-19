@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS `videos` (
+    `vide_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+    `vide_name` varchar(255) NOT NULL,
+    `vide_url_dailymotion` varchar(255) NOT NULL,
+    `vide_nbvue` varchar(255) NOT NULL,
+    `vide_rate` varchar(255) NOT NULL,
+    `vide_id_dailymotion` varchar(255) NOT NULL,
+    `vide_tags` varchar(255) NOT NULL,
+    `vide_virtual_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+    `vide_context` varchar(25) NOT NULL,
+    `vide_context_common_id` int(11) NOT NULL,
+    `vide_context_is_main` tinyint(1) NOT NULL DEFAULT '0',
+    `vide_publication_status` tinyint(1) NOT NULL,
+    `vide_publication_start` datetime DEFAULT NULL,
+    `vide_publication_end` datetime DEFAULT NULL,
+    `vide_created_by_id` INT UNSIGNED NULL,
+    `vide_updated_by_id` INT UNSIGNED NULL,
+    `vide_created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `vide_updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`vide_id`),
+    KEY `vide_created_at` (`vide_created_at`),
+    KEY `vide_updated_at` (`vide_updated_at`)
+) DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
